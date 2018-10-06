@@ -35,22 +35,74 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>RaedBox WOD</title>
     </head>
-    <body onload="addWod()">
+    <body onload="onLoadFunction()">
         <div style="margin-left: 1em;margin-right: 1em;" id="content">
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script>
-            function addWod()
+            function onLoadFunction()
             {
-                $('#content').load('http://www.raedbox.eu/wod/ #black-studio-tinymce-7');
-                document.addEventListener("resume", onResume, false);
-
+                addWod();
+                document.addEventListener("resume", addWod, false);
             }
 
-            function onResume() {
-                $('#content').load('http://www.raedbox.eu/wod/ #black-studio-tinymce-7');
+            function getDateReversed()
+            {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yy = today.getFullYear().toString().substr(2);
+
+                if(dd<10) {
+                    dd = '0'+dd
+                } 
+
+                if(mm<10) {
+                    mm = '0'+mm
+                } 
+
+                today = yy + '.' + mm + '.' + dd;//dd + '.' + mm + '.' + yy;
+
+                return today;
+            }
+
+            function addWod()
+            {
+                $('#content').load('http://www.raedbox.eu/wod/ #black-studio-tinymce-7', function(){
+
+                    let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML.split("<hr>");
+
+                    let reconstructedInnerHtml="";
+                    let alreadyFound=false;
+
+                    for(let hr of splitByHrTag)
+                    {
+                        if(alreadyFound)
+                        {
+                            reconstructedInnerHtml+=hr+"<hr>";
+                            continue;
+                        }
+                        let fromFirstSpan=hr.substring(hr.indexOf("<span"));
+                        let fromClosedFirstSpan=fromFirstSpan.substring(fromFirstSpan.indexOf(">")+1);
+                        let wodDate=fromClosedFirstSpan.substring(0,fromClosedFirstSpan.indexOf("<br>"));
+                        let splitDateByDot=wodDate.split('.');
+                        let wodDateReversed=splitDateByDot[2]+'.'+splitDateByDot[1]+'.'+splitDateByDot[0];
+                        
+                        if(wodDateReversed<=getDateReversed())
+                        {
+                            hr=hr.replace(new RegExp('style="', 'g'), 'style="color:green;');
+                            alreadyFound=true;
+                        }
+                        
+                        reconstructedInnerHtml+=hr+"<hr>";
+                    }
+
+                    $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=reconstructedInnerHtml;
+                    
+
+                })
             }
 
 
