@@ -72,6 +72,12 @@
             {
                 $('#content').load('http://www.raedbox.eu/wod/ #black-studio-tinymce-7', function(){
 
+                $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
+
+
+
+                //    console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].style);
+
                     let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML.split("<hr>");
 
                     let reconstructedInnerHtml="";
