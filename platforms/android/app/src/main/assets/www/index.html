@@ -74,24 +74,47 @@
 
                 $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
 
+//console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML);
 
+                    console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0]);
 
-                //    console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].style);
-
-                    let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML.split("<hr>");
+                    let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].children[0];
+                    
+                    while(splitByHrTag.innerHTML.startsWith("<span"))
+                    {
+                        splitByHrTag=splitByHrTag.children[0];
+                    }
+                    splitByHrTag=splitByHrTag.innerHTML.split("<hr>");
 
                     let reconstructedInnerHtml="";
                     let alreadyFound=false;
 
                     for(let hr of splitByHrTag)
                     {
+
+
+                        console.log(hr);
                         if(alreadyFound)
                         {
                             reconstructedInnerHtml+=hr+"<hr>";
                             continue;
                         }
+
+                        if(!hr.startsWith("<p>"))
+                        {
+                            hr='<p><span style="font-family: Blender Bold; font-size: 10pt;">'+hr+'</span></p>';
+                        }
+                        
                         let fromFirstSpan=hr.substring(hr.indexOf("<span"));
                         let fromClosedFirstSpan=fromFirstSpan.substring(fromFirstSpan.indexOf(">")+1);
+
+                        /*while(fromClosedFirstSpan.startsWith("<span"))
+                        {
+                            fromClosedFirstSpan=fromClosedFirstSpan.substring(fromClosedFirstSpan.indexOf(">")+1);
+                        }
+                        console.log(fromClosedFirstSpan);*/
+
+
                         let wodDate=fromClosedFirstSpan.substring(0,fromClosedFirstSpan.indexOf("<br>"));
                         let splitDateByDot=wodDate.split('.');
                         let wodDateReversed=splitDateByDot[2]+'.'+splitDateByDot[1]+'.'+splitDateByDot[0];
@@ -103,9 +126,10 @@
                         }
                         
                         reconstructedInnerHtml+=hr+"<hr>";
+                        console.log(reconstructedInnerHtml)
                     }
 
-                    $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=reconstructedInnerHtml;
+                    $('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML=reconstructedInnerHtml;
                     
 
                 })

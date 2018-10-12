@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Oct 11 19:27:24 CEST 2018
+#Fri Oct 12 09:39:13 CEST 2018
 25.file=C\:\\Users\\stefan\\Desktop\\wodViewerRepo\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-xxhdpi-v4\\screen.png
 25.base=C\:\\Users\\stefan\\Desktop\\wodViewerRepo\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 22.set=ANDROID_RESOURCE
