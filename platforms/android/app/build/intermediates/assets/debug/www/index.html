@@ -68,16 +68,78 @@
                 return today;
             }
 
+
+            function getDate(offset)
+            {
+                var today = new Date();
+
+                today.setDate(today.getDate() - offset);
+
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yy = today.getFullYear().toString().substr(2);
+
+                if(dd<10) {
+                    dd = '0'+dd
+                } 
+
+                if(mm<10) {
+                    mm = '0'+mm
+                } 
+
+                today = dd + '.' + mm + '.' + yy;//dd + '.' + mm + '.' + yy;
+
+                return today;
+            }
+
+
+
             function addWod()
             {
                 $('#content').load('http://www.raedbox.eu/wod/ #black-studio-tinymce-7', function(){
+
+                    //console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML)
 
                 $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
 
 //console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML);
 
-                    console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0]);
+                   // console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0]);
 
+                    
+                    let offset=0;
+
+                    let modifiedInnerHTML=$('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML;
+
+                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
+                    {
+                        offset++;
+                    }
+
+                    let firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
+                    let secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
+
+                    modifiedInnerHTML=firstPart+'<div style="color:green">'+secondPart;
+
+                    offset++;
+
+                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
+                    {
+                        offset++;
+                    }
+
+                    firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
+                    secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
+
+                    modifiedInnerHTML=firstPart+'</div>'+secondPart;
+
+                    $('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML=modifiedInnerHTML;
+
+
+
+
+                    //old more complicated code ########################################################################################
+                    return;
                     let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].children[0];
                     
                     while(splitByHrTag.innerHTML.startsWith("<span"))
@@ -93,7 +155,7 @@
                     {
 
 
-                        console.log(hr);
+                        //console.log(hr);
                         if(alreadyFound)
                         {
                             reconstructedInnerHtml+=hr+"<hr>";
@@ -126,7 +188,7 @@
                         }
                         
                         reconstructedInnerHtml+=hr+"<hr>";
-                        console.log(reconstructedInnerHtml)
+                        //console.log(reconstructedInnerHtml)
                     }
 
                     $('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML=reconstructedInnerHtml;
