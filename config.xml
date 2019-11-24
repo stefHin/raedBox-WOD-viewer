@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="raedBox.viewer" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0"
+xmlns:android="http://schemas.android.com/apk/res/android">
     <name>RaedBox WOD</name>
     <description>
         Shows RaedBox WODs
@@ -18,6 +19,9 @@
     <allow-intent href="geo:*" />
     <allow-intent href="http://www.raedbox.eu/*" />
     <platform name="android">
+  <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+      <application android:usesCleartextTraffic="true" />
+  </edit-config>
         <allow-intent href="market:*" />
         <allow-intent href="http://www.raedbox.eu/*" />
     </platform>
@@ -25,6 +29,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="android" spec="^7.0.0" />
+<preference name="android-targetSdkVersion" value="28" />
+    <engine name="android" spec="^9.0.0" />
     <engine name="ios" spec="^4.5.5" />
 </widget>
