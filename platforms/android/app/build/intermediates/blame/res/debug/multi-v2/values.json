@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\stefan\\Desktop\\raedBoxApp\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "/home/stefan/Schreibtisch/raedBox-WOD-viewer/C:\\Users\\stefan\\Desktop\\raedBoxApp\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\stefan\\Desktop\\raedBoxApp\\platforms\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "source": "/home/stefan/Schreibtisch/raedBox-WOD-viewer/C:\\Users\\stefan\\Desktop\\raedBoxApp\\platforms\\android\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "-1,2,-1",
                         "startColumns": "-1,4,-1",
@@ -23,10 +23,32 @@
             ]
         },
         {
-            "outputFile": "C:\\Users\\stefan\\Desktop\\wodViewerRepo\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+            "outputFile": "/home/stefan/Schreibtisch/raedBox-WOD-viewer/C:\\Users\\stefan\\Desktop\\wodViewerRepo\\platforms\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\stefan\\Desktop\\wodViewerRepo\\platforms\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "source": "/home/stefan/Schreibtisch/raedBox-WOD-viewer/C:\\Users\\stefan\\Desktop\\wodViewerRepo\\platforms\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "4,2,3",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "163,55,104",
+                        "endColumns": "63,48,58",
+                        "endOffsets": "222,99,158"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,119,168",
+                        "endColumns": "63,48,58",
+                        "endOffsets": "114,163,222"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+            "map": [
+                {
+                    "source": "/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/src/main/res/values/strings.xml",
                     "from": {
                         "startLines": "4,2,3",
                         "startColumns": "4,4,4",

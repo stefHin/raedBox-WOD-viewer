@@ -17,7 +17,8 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html style="background-color:black;"><!-- style necessary in html as wellor top of the page is not colored-->
+
     <head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -35,9 +36,13 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>RaedBox WOD</title>
     </head>
-    <body onload="onLoadFunction()">
-        <div style="margin-left: 1em;margin-right: 1em;" id="content">
+    <body onload="onLoadFunction()" >
+        <div style="background-color:black;color:white;">
+        <div style="margin-left: 1em;margin-right: 1em; margin-top: 0.5em;" id="content" >
         </div>
+
+    </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script src="js/jquery-3.3.1.min.js"></script>
@@ -94,115 +99,91 @@
 
 
 
+
+
             function addWod()
             {
                 $('#content').load('http://www.raedbox.eu/wod/ #text-4', function(){//#black-studio-tinymce-7
 
 
-//console.log($('#content')[0])
-               //     return;
-             //       $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
+                    $('#content')[0].getElementsByClassName("widget-title")[0].parentNode.removeChild($('#content')[0].getElementsByClassName("widget-title")[0]);//remove title "WOD Table"
 
-                //$('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
+                    $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height, necessary to use full screen height
 
-                                                //console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML);
+                    makeDatesBold();
 
-                                                // console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0]);
-
-                                     //           console.log($('#content')[0].getElementsByClassName("textwidget")[0])
-                       
-                    let offset=0;
-
-                    let modifiedInnerHTML=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML//.children[0].innerHTML;
+                    let startColorOffset=0;
 
 
-                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
-                    {
-                        offset++;
-                    }
-
-                    let firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
-                    let secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
-
-                    modifiedInnerHTML=firstPart+'<div style="color:green">'+secondPart;
-
-                    offset++;
-
-                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
-                    {
-                        offset++;
-                    }
-
-                    firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
-                    secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
-
-                    modifiedInnerHTML=firstPart+'</div>'+secondPart;
-
-                    $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=modifiedInnerHTML;
-
-
-
-
-                    //old more complicated code ########################################################################################
-                    return;
-                    let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].children[0];
+                    let innerHTMLCode=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML;//.children[0].innerHTML;
                     
-                    while(splitByHrTag.innerHTML.startsWith("<span"))
+
+                    while(innerHTMLCode.indexOf(getDate(startColorOffset))<0)
                     {
-                        splitByHrTag=splitByHrTag.children[0];
-                    }
-                    splitByHrTag=splitByHrTag.innerHTML.split("<hr>");
-
-                    let reconstructedInnerHtml="";
-                    let alreadyFound=false;
-
-                    for(let hr of splitByHrTag)
-                    {
-
-
-                        //console.log(hr);
-                        if(alreadyFound)
-                        {
-                            reconstructedInnerHtml+=hr+"<hr>";
-                            continue;
-                        }
-
-                        if(!hr.startsWith("<p>"))
-                        {
-                            hr='<p><span style="font-family: Blender Bold; font-size: 10pt;">'+hr+'</span></p>';
-                        }
-                        
-                        let fromFirstSpan=hr.substring(hr.indexOf("<span"));
-                        let fromClosedFirstSpan=fromFirstSpan.substring(fromFirstSpan.indexOf(">")+1);
-
-                        /*while(fromClosedFirstSpan.startsWith("<span"))
-                        {
-                            fromClosedFirstSpan=fromClosedFirstSpan.substring(fromClosedFirstSpan.indexOf(">")+1);
-                        }
-                        console.log(fromClosedFirstSpan);*/
-
-
-                        let wodDate=fromClosedFirstSpan.substring(0,fromClosedFirstSpan.indexOf("<br>"));
-                        let splitDateByDot=wodDate.split('.');
-                        let wodDateReversed=splitDateByDot[2]+'.'+splitDateByDot[1]+'.'+splitDateByDot[0];
-                        
-                        if(wodDateReversed<=getDateReversed())
-                        {
-                            hr=hr.replace(new RegExp('style="', 'g'), 'style="color:green;');
-                            alreadyFound=true;
-                        }
-                        
-                        reconstructedInnerHtml+=hr+"<hr>";
-                        //console.log(reconstructedInnerHtml)
+                        startColorOffset--;
+                        if(startColorOffset<-1000)//in case neither current date nor any future date is founds
+                            return;//in that case just don't color anything
                     }
 
-                    $('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML=reconstructedInnerHtml;
+                    let color;
+                    if(startColorOffset<0)
+                    {
+                        color="khaki";
+                    }
+                    else
+                    {
+                        color="lightgreen";
+
+                    }
                     
+
+                    let firstPart=innerHTMLCode.substring(0,innerHTMLCode.indexOf(getDate(startColorOffset)));
+
+                    let endColorOffset=startColorOffset+1;
+
+                    while(innerHTMLCode.indexOf(getDate(endColorOffset))<0)
+                    {
+                        endColorOffset++;
+                        if(startColorOffset>1000)//in case no previous date is found, will probably never happen
+                            return;//in that case just don't color anything
+                    }
+
+                    let secondPart=innerHTMLCode.substring(innerHTMLCode.indexOf(getDate(startColorOffset)), innerHTMLCode.indexOf(getDate(endColorOffset)));
+                    let thirdPart=innerHTMLCode.substring(innerHTMLCode.indexOf(getDate(endColorOffset)));
+
+
+                    innerHTMLCode=firstPart+'<div style="color:' +color+'">'+secondPart+'</div>'+thirdPart;
+
+
+                    $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=innerHTMLCode;
+
 
                 })
+            }
+
+            function makeDatesBold()
+            {
+                let innerHTMLCode=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML;//.children[0].innerHTML;
+
+                for(let i=-30; i<300; i++)
+                {
+                    let index=innerHTMLCode.indexOf(getDate(i));
+                    if(index>=0)
+                    {
+                        let firstPart=innerHTMLCode.substring(0,index);
+                        let secondPart=innerHTMLCode.substring(index, index+8);
+                        let thirdPart=innerHTMLCode.substring(index+8);
+                        innerHTMLCode=firstPart+"<b>"+secondPart+"</b>"+thirdPart;
+                    }
+                }
+
+                $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=innerHTMLCode;
+
             }
 
 
         </script>
     </body>
 </html>
+
+

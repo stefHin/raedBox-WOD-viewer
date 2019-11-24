@@ -35,17 +35,174 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>RaedBox WOD</title>
     </head>
-    <body onload="addWod()">
+    <body onload="onLoadFunction()">
         <div style="margin-left: 1em;margin-right: 1em;" id="content">
         </div>
-        <!--<script type="text/javascript" src="cordova.js"></script>-->
+        <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script>
+            function onLoadFunction()
+            {
+                addWod();
+                document.addEventListener("resume", addWod, false);
+            }
+
+            function getDateReversed()
+            {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yy = today.getFullYear().toString().substr(2);
+
+                if(dd<10) {
+                    dd = '0'+dd
+                } 
+
+                if(mm<10) {
+                    mm = '0'+mm
+                } 
+
+                today = yy + '.' + mm + '.' + dd;//dd + '.' + mm + '.' + yy;
+
+                return today;
+            }
+
+
+            function getDate(offset)
+            {
+                var today = new Date();
+
+                today.setDate(today.getDate() - offset);
+
+                var dd = today.getDate();
+                var mm = today.getMonth()+1; //January is 0!
+                var yy = today.getFullYear().toString().substr(2);
+
+                if(dd<10) {
+                    dd = '0'+dd
+                } 
+
+                if(mm<10) {
+                    mm = '0'+mm
+                } 
+
+                today = dd + '.' + mm + '.' + yy;//dd + '.' + mm + '.' + yy;
+
+                return today;
+            }
+
+
+
             function addWod()
             {
-                $('#content').load('http://www.raedbox.eu/wod/ #black-studio-tinymce-7');
+                $('#content').load('http://www.raedbox.eu/wod/ #text-4', function(){//#black-studio-tinymce-7
+
+
+//console.log($('#content')[0])
+               //     return;
+             //       $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
+
+                //$('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
+
+                                                //console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML);
+
+                                                // console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0]);
+
+                                     //           console.log($('#content')[0].getElementsByClassName("textwidget")[0])
+                       
+                    let offset=0;
+
+                    let modifiedInnerHTML=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML//.children[0].innerHTML;
+
+
+                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
+                    {
+                        offset++;
+                    }
+
+                    let firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
+                    let secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
+
+                    modifiedInnerHTML=firstPart+'<div style="color:green">'+secondPart;
+
+                    offset++;
+
+                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
+                    {
+                        offset++;
+                    }
+
+                    firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
+                    secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
+
+                    modifiedInnerHTML=firstPart+'</div>'+secondPart;
+
+                    $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=modifiedInnerHTML;
+
+
+
+
+                    //old more complicated code ########################################################################################
+                    return;
+                    let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].children[0];
+                    
+                    while(splitByHrTag.innerHTML.startsWith("<span"))
+                    {
+                        splitByHrTag=splitByHrTag.children[0];
+                    }
+                    splitByHrTag=splitByHrTag.innerHTML.split("<hr>");
+
+                    let reconstructedInnerHtml="";
+                    let alreadyFound=false;
+
+                    for(let hr of splitByHrTag)
+                    {
+
+
+                        //console.log(hr);
+                        if(alreadyFound)
+                        {
+                            reconstructedInnerHtml+=hr+"<hr>";
+                            continue;
+                        }
+
+                        if(!hr.startsWith("<p>"))
+                        {
+                            hr='<p><span style="font-family: Blender Bold; font-size: 10pt;">'+hr+'</span></p>';
+                        }
+                        
+                        let fromFirstSpan=hr.substring(hr.indexOf("<span"));
+                        let fromClosedFirstSpan=fromFirstSpan.substring(fromFirstSpan.indexOf(">")+1);
+
+                        /*while(fromClosedFirstSpan.startsWith("<span"))
+                        {
+                            fromClosedFirstSpan=fromClosedFirstSpan.substring(fromClosedFirstSpan.indexOf(">")+1);
+                        }
+                        console.log(fromClosedFirstSpan);*/
+
+
+                        let wodDate=fromClosedFirstSpan.substring(0,fromClosedFirstSpan.indexOf("<br>"));
+                        let splitDateByDot=wodDate.split('.');
+                        let wodDateReversed=splitDateByDot[2]+'.'+splitDateByDot[1]+'.'+splitDateByDot[0];
+                        
+                        if(wodDateReversed<=getDateReversed())
+                        {
+                            hr=hr.replace(new RegExp('style="', 'g'), 'style="color:green;');
+                            alreadyFound=true;
+                        }
+                        
+                        reconstructedInnerHtml+=hr+"<hr>";
+                        //console.log(reconstructedInnerHtml)
+                    }
+
+                    $('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML=reconstructedInnerHtml;
+                    
+
+                })
             }
+
+
         </script>
     </body>
 </html>
