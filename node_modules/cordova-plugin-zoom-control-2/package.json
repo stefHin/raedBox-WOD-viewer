@@ -1,0 +1,50 @@
+{
+  "_from": "git+https://github.com/fmoutawe/cordova-plugin-zoom-control.git",
+  "_id": "cordova-plugin-zoom-control-2@0.4.2",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-zoom-control-2",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/fmoutawe/cordova-plugin-zoom-control.git",
+    "rawSpec": "https://github.com/fmoutawe/cordova-plugin-zoom-control.git",
+    "saveSpec": "git+https://github.com/fmoutawe/cordova-plugin-zoom-control.git",
+    "fetchSpec": "https://github.com/fmoutawe/cordova-plugin-zoom-control.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/fmoutawe/cordova-plugin-zoom-control.git#af2ab306e2c9214f1b5e19ba4ced3ba98a251acb",
+  "_spec": "https://github.com/fmoutawe/cordova-plugin-zoom-control.git",
+  "_where": "/home/stefan/Schreibtisch/raedBox-WOD-viewer",
+  "author": {
+    "name": "Flavien"
+  },
+  "bugs": {
+    "url": "https://github.com/ivelfan/cordova-plugin-zoom-control/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-zoom-control-2",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Plugin for enable the native zoom control on cordova",
+  "homepage": "https://github.com/ivelfan/cordova-plugin-zoom-control#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-zoom-control-2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivelfan/cordova-plugin-zoom-control.git"
+  },
+  "version": "0.4.2"
+}
