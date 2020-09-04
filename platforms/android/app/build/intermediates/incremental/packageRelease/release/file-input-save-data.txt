@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Sep 04 21:21:26 CEST 2020
+#Fri Sep 04 21:35:35 CEST 2020
 25.file=/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/build/intermediates/assets/release/www/cordova-js-src/plugin/android/app.js
 25.base=/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/build/intermediates/assets/release
 22.set=ASSET
