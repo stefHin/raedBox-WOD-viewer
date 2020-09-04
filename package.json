@@ -12,17 +12,16 @@
   "dependencies": {
     "cordova-android": "^7.0.0",
     "cordova-ios": "^4.5.5",
-    "cordova-plugin-whitelist": "^1.3.3",
-    "cordova-plugin-zoom-control-2": "git+https://github.com/fmoutawe/cordova-plugin-zoom-control.git"
+    "cordova-plugin-whitelist": "^1.3.3"
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {},
-      "cordova-plugin-zoom-control-2": {}
+      "cordova-plugin-whitelist": {}
     },
     "platforms": [
       "android",
       "ios"
     ]
-  }
+  },
+  "devDependencies": {}
 }

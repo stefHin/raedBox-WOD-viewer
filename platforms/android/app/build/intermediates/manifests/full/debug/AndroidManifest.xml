@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="raedBox.viewer"
     android:hardwareAccelerated="true"
-    android:versionCode="10004"
-    android:versionName="1.0.4" >
+    android:versionCode="10006"
+    android:versionName="1.0.6" >
 
     <uses-sdk
         android:minSdkVersion="16"

@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Jan 30 12:57:10 CET 2020
+#Fri Sep 04 21:09:33 CEST 2020
 25.file=/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-land-ldpi-v4/screen.png
 25.base=/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 22.set=ASSET
