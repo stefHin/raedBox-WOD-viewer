@@ -50,7 +50,7 @@
 
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/jquery-3.5.1.min.js"></script>
         <script>
             function onLoadFunction()
             {
@@ -93,7 +93,7 @@
             {
                 var today = new Date();
 
-                today.setDate(today.getDate() - offset);
+                today.setDate(today.getDate() + offset);
 
                 var dd = today.getDate();
                 var mm = today.getMonth()+1; //January is 0!
@@ -113,96 +113,33 @@
             }
 
 
-
-
-
             function addWod()
             {
                 $('#content').hide();
                 $('#loader').show();
                 
-                $('#content').load('http://www.raedbox.eu/wod/ #text-4', function(){//#black-studio-tinymce-7
-
-
-                    $('#content')[0].getElementsByClassName("widget-title")[0].parentNode.removeChild($('#content')[0].getElementsByClassName("widget-title")[0]);//remove title "WOD Table"
-
-                    $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height, necessary to use full screen height
-
-                    makeDatesBold();
-
-                    let startColorOffset=0;
-
-
-                    let innerHTMLCode=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML;//.children[0].innerHTML;
+                $('#content').load('http://www.raedbox.eu/workout-of-the-day/', function(){
                     
+                    $('#content')[0].innerHTML = document.getElementsByClassName("uabb-module-content uabb-blog-posts uabb-post-grid-1")[0].innerHTML;
+                    console.log($('#content').children());
 
-                    while(innerHTMLCode.indexOf(getDate(startColorOffset))<0)
-                    {
-                        startColorOffset--;
-                        if(startColorOffset<-1000)//in case neither current date nor any future date is founds
-                            return;//in that case just don't color anything
+                    for (let offset = 0; offset < 100; offset++) {
+                        for(let i=0; i<$('#content').children().length; i++) {
+                            if ($('#content').children()[i].innerHTML.includes(getDate(offset))) {
+                                if (offset == 0) {
+                                    $('#content').children()[i].style.color="lightgreen";
+                                } else {
+                                    $('#content').children()[i].style.color="khaki";
+                                }
+                            } 
+                        }
                     }
-
-                    let color;
-                    if(startColorOffset<0)
-                    {
-                        color="khaki";
-                    }
-                    else
-                    {
-                        color="lightgreen";
-
-                    }
-                    
-
-                    let firstPart=innerHTMLCode.substring(0,innerHTMLCode.indexOf(getDate(startColorOffset)));
-
-                    let endColorOffset=startColorOffset+1;
-
-                    while(innerHTMLCode.indexOf(getDate(endColorOffset))<0)
-                    {
-                        endColorOffset++;
-                        if(startColorOffset>1000)//in case no previous date is found, will probably never happen
-                            return;//in that case just don't color anything
-                    }
-
-                    let secondPart=innerHTMLCode.substring(innerHTMLCode.indexOf(getDate(startColorOffset)), innerHTMLCode.indexOf(getDate(endColorOffset)));
-                    let thirdPart=innerHTMLCode.substring(innerHTMLCode.indexOf(getDate(endColorOffset)));
-
-
-                    innerHTMLCode=firstPart+'<div style="color:' +color+'">'+secondPart+'</div>'+thirdPart;
-
-
-                    $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=innerHTMLCode;
 
                     $('#content').show();
+                    console.log($('#content'));
                     $('#loader').hide();
-
                 })
-
-
             }
-
-            function makeDatesBold()
-            {
-                let innerHTMLCode=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML;//.children[0].innerHTML;
-
-                for(let i=-30; i<300; i++)
-                {
-                    let index=innerHTMLCode.indexOf(getDate(i));
-                    if(index>=0)
-                    {
-                        let firstPart=innerHTMLCode.substring(0,index);
-                        let secondPart=innerHTMLCode.substring(index, index+8);
-                        let thirdPart=innerHTMLCode.substring(index+8);
-                        innerHTMLCode=firstPart+"<b>"+secondPart+"</b>"+thirdPart;
-                    }
-                }
-
-                $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=innerHTMLCode;
-
-            }
-
 
         </script>
     </body>
