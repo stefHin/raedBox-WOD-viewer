@@ -17,7 +17,8 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html style="background-color:black;"><!-- style necessary in html as wellor top of the page is not colored-->
+
     <head>
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -29,21 +30,40 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-
         <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <!--<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=3, minimum-scale=1, width=device-width">-->
+
+        <meta
+        name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+              <!--<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=5, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+              <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=0.5, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+      <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>RaedBox WOD</title>
     </head>
-    <body onload="onLoadFunction()">
-        <div style="margin-left: 1em;margin-right: 1em;" id="content">
+    <body onload="onLoadFunction()" >
+        <div style="background-color:black;color:white;">
+        <div style="margin-left: 1em;margin-right: 1em; margin-top: 0.5em;" id="content" >
         </div>
+        <div id="loader" class="loader"></div>
+    </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/jquery-3.5.1.min.js"></script>
         <script>
             function onLoadFunction()
             {
+  	/* temporarily removed, suddenly stopped working on 1/9/20, contains vounerabilities??!
+       	//enabling zoom control
+  		 cordova.plugins.ZoomControl.ZoomControl("true");
+  		 // enabling built in zoom control
+  		 cordova.plugins.ZoomControl.setBuiltInZoomControls("true");
+  		 // enabling display zoom control
+  		 cordova.plugins.ZoomControl.setDisplayZoomControls("true");
+  		 // enabling wide viewport
+  		 cordova.plugins.ZoomControl.setUseWideViewPort("true");*/
+
                 addWod();
                 document.addEventListener("resume", addWod, false);
             }
@@ -73,7 +93,7 @@
             {
                 var today = new Date();
 
-                today.setDate(today.getDate() - offset);
+                today.setDate(today.getDate() + offset);
 
                 var dd = today.getDate();
                 var mm = today.getMonth()+1; //January is 0!
@@ -93,116 +113,36 @@
             }
 
 
-
             function addWod()
             {
-                $('#content').load('http://www.raedbox.eu/wod/ #text-4', function(){//#black-studio-tinymce-7
-
-
-//console.log($('#content')[0])
-               //     return;
-             //       $('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
-
-                //$('#content')[0].getElementsByClassName("textwidget")[0].children[0].style=null;//to remove scrollbar and height
-
-                                                //console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML);
-
-                                                // console.log($('#content')[0].getElementsByClassName("textwidget")[0].children[0].children[0].children[0].children[0].children[0].children[0].children[0]);
-
-                                     //           console.log($('#content')[0].getElementsByClassName("textwidget")[0])
-                       
-                    let offset=0;
-
-                    let modifiedInnerHTML=$('#content')[0].getElementsByClassName("textwidget")[0].innerHTML//.children[0].innerHTML;
-
-
-                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
-                    {
-                        offset++;
-                    }
-
-                    let firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
-                    let secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
-
-                    modifiedInnerHTML=firstPart+'<div style="color:green">'+secondPart;
-
-                    offset++;
-
-                    while(modifiedInnerHTML.indexOf(getDate(offset))<0)
-                    {
-                        offset++;
-                    }
-
-                    firstPart=modifiedInnerHTML.substring(0,modifiedInnerHTML.indexOf(getDate(offset)));
-                    secondPart=modifiedInnerHTML.substring(modifiedInnerHTML.indexOf(getDate(offset)));
-
-                    modifiedInnerHTML=firstPart+'</div>'+secondPart;
-
-                    $('#content')[0].getElementsByClassName("textwidget")[0].innerHTML=modifiedInnerHTML;
-
-
-
-
-                    //old more complicated code ########################################################################################
-                    return;
-                    let splitByHrTag=$('#content')[0].getElementsByClassName("textwidget")[0].children[0];
+                $('#content').hide();
+                $('#loader').show();
+                
+                $('#content').load('http://www.raedbox.eu/workout-of-the-day/', function(){
                     
-                    while(splitByHrTag.innerHTML.startsWith("<span"))
-                    {
-                        splitByHrTag=splitByHrTag.children[0];
-                    }
-                    splitByHrTag=splitByHrTag.innerHTML.split("<hr>");
+                    $('#content')[0].innerHTML = document.getElementsByClassName("uabb-module-content uabb-blog-posts uabb-post-grid-1")[0].innerHTML;
+                    console.log($('#content').children());
 
-                    let reconstructedInnerHtml="";
-                    let alreadyFound=false;
-
-                    for(let hr of splitByHrTag)
-                    {
-
-
-                        //console.log(hr);
-                        if(alreadyFound)
-                        {
-                            reconstructedInnerHtml+=hr+"<hr>";
-                            continue;
+                    for (let offset = 0; offset < 100; offset++) {
+                        for(let i=0; i<$('#content').children().length; i++) {
+                            if ($('#content').children()[i].innerHTML.includes(getDate(offset))) {
+                                if (offset == 0) {
+                                    $('#content').children()[i].style.color="lightgreen";
+                                } else {
+                                    $('#content').children()[i].style.color="khaki";
+                                }
+                            } 
                         }
-
-                        if(!hr.startsWith("<p>"))
-                        {
-                            hr='<p><span style="font-family: Blender Bold; font-size: 10pt;">'+hr+'</span></p>';
-                        }
-                        
-                        let fromFirstSpan=hr.substring(hr.indexOf("<span"));
-                        let fromClosedFirstSpan=fromFirstSpan.substring(fromFirstSpan.indexOf(">")+1);
-
-                        /*while(fromClosedFirstSpan.startsWith("<span"))
-                        {
-                            fromClosedFirstSpan=fromClosedFirstSpan.substring(fromClosedFirstSpan.indexOf(">")+1);
-                        }
-                        console.log(fromClosedFirstSpan);*/
-
-
-                        let wodDate=fromClosedFirstSpan.substring(0,fromClosedFirstSpan.indexOf("<br>"));
-                        let splitDateByDot=wodDate.split('.');
-                        let wodDateReversed=splitDateByDot[2]+'.'+splitDateByDot[1]+'.'+splitDateByDot[0];
-                        
-                        if(wodDateReversed<=getDateReversed())
-                        {
-                            hr=hr.replace(new RegExp('style="', 'g'), 'style="color:green;');
-                            alreadyFound=true;
-                        }
-                        
-                        reconstructedInnerHtml+=hr+"<hr>";
-                        //console.log(reconstructedInnerHtml)
                     }
 
-                    $('#content')[0].getElementsByClassName("textwidget")[0].children[0].innerHTML=reconstructedInnerHtml;
-                    
-
+                    $('#content').show();
+                    console.log($('#content'));
+                    $('#loader').hide();
                 })
             }
-
 
         </script>
     </body>
 </html>
+
+
