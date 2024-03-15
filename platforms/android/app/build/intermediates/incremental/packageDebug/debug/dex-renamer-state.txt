@@ -1,4 +1,0 @@
-#Sat Mar 27 16:58:41 CET 2021
-base.0=/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
-renamed.0=classes.dex
-file.0=/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

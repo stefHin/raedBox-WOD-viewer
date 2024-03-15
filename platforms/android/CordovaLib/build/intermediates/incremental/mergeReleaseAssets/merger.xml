@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/CordovaLib/assets"/><source path="/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/CordovaLib/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/home/stefan/Schreibtisch/raedBox-WOD-viewer/platforms/android/CordovaLib/src/release/assets"/></dataSet></merger>
