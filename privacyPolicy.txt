@@ -1,4 +1,4 @@
-the app itself collects no data. Its simple function is to curl the current WoDs from the raedbox website (https://www.raedbox.eu/workout-of-the-day/)
-Data that the website may or may not collects is independent of the app - it is just like if you are viewing it in a normal web browser. For more information, have a look at https://www.raedbox.eu/datenschutz/
+The app itself does not collect any data. Its simple function is to curl the current WoDs from the raedbox website (https://www.raedbox.eu/workout-of-the-day/) and display them in a more fancy way.
+Data that the website may or may not collect is independent of the app - it is just like if you are viewing it in a normal web browser. For more information, have a look at https://www.raedbox.eu/datenschutz/
 
 Now I hope you enjoy your comfy shortcut to the WoD section and have a lovely day!
